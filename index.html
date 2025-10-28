@@ -18,7 +18,7 @@
         img { max-width: 100%; height: auto; display: block; loading: lazy; }
         a { text-decoration: none; }
 
-        /* === ШАПКА: FULLSCREEN === */
+        /* === ШАПКА: FULLSCREEN + ТЕКСТ ПО ЛЕВОМУ КРАЮ === */
         .hero {
             position: relative;
             width: 100vw; height: 100vh; margin: 0; padding: 0; overflow: hidden;
@@ -33,7 +33,7 @@
         }
         .overlay-content {
             position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-            text-align: center; color: #fff; z-index: 2; width: 90%; max-width: 1100px;
+            color: #fff; z-index: 2; width: 90%; max-width: 1100px;
         }
         .overlay-content h1 {
             font-size: clamp(1.8rem, 5.5vw, 3.8rem); font-weight: 900;
@@ -94,10 +94,10 @@
             to { opacity: 1; transform: scale(1); }
         }
 
-        /* === Контейнер === */
+        /* === КОНТЕЙНЕР === */
         .container { max-width: 1400px; margin: 0 auto; padding: 0 15px; }
 
-        /* === Остальные секции (без изменений) === */
+        /* === О ПРОЕКТЕ === */
         .about { padding: 60px 0; }
         .about h2 { font-size: clamp(1.8rem, 4vw, 2.5rem); margin-bottom: 20px; text-align: center; }
         .gallery { display: flex; overflow-x: auto; gap: 10px; padding: 10px 0; scrollbar-width: thin; }
@@ -109,17 +109,20 @@
         .features li { font-size: 1.05rem; margin-bottom: 18px; padding-left: 40px; position: relative; }
         .features li::before { content: 'Checkmark'; position: absolute; left: 0; font-weight: 900; color: #000; font-size: 1.5rem; }
 
+        /* === ПРЕИМУЩЕСТВА === */
         .advantages { padding: 60px 0; background: #fafafa; }
         .advantages h1 { font-size: clamp(1.8rem, 4vw, 2.4rem); margin-bottom: 30px; text-align: center; }
         .card { background: #fff; padding: 20px; border-radius: 12px; margin-bottom: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
         .card h2 { font-size: 1.4rem; margin-bottom: 12px; }
 
+        /* === ИНВЕСТОРАМ === */
         .invest { position: relative; color: #fff; margin: 60px 0; }
         .invest img { width: 100%; min-height: 400px; object-fit: cover; }
         .invest .overlay-text { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; max-width: 700px; padding: 0 20px; z-index: 2; }
         .invest h1 { font-size: clamp(1.8rem, 4.5vw, 2.6rem); margin-bottom: 15px; }
         .invest p { font-size: 1.05rem; margin-bottom: 25px; }
 
+        /* === СХЕМА ВЗАИМОДЕЙСТВИЯ === */
         .scheme { padding: 60px 0; text-align: center; }
         .scheme h1 { font-size: clamp(1.8rem, 4vw, 2.4rem); margin-bottom: 40px; }
         .steps { display: flex; flex-direction: column; align-items: center; }
@@ -129,12 +132,14 @@
         .step-text p { font-size: 0.95rem; color: #555; }
         .line { width: 2px; height: 50px; background: #f4d29e; margin: 0 auto; }
 
+        /* === КАРТА === */
         .map-section { background: #f4d29e; color: #fff; padding: 60px 0; text-align: center; }
         .map-section h2 { font-size: 1.6rem; margin-bottom: 15px; }
         .map-section p { margin-bottom: 20px; font-size: 1rem; }
         .map-placeholder { height: 250px; border-radius: 12px; overflow: hidden; margin: 0 auto 20px; max-width: 800px; }
         .map-placeholder img { width: 100%; height: 100%; object-fit: cover; }
 
+        /* === ЖИЗНЬ В ГК === */
         .life { padding: 60px 0; text-align: center; }
         .life h1 { font-size: clamp(2rem, 5vw, 3rem); margin-bottom: 20px; }
         .life p { font-size: 1.1rem; margin-bottom: 30px; max-width: 800px; margin-left: auto; margin-right: auto; }
@@ -146,26 +151,44 @@
             .line { display: none; }
         }
         @media (min-width: 1024px) {
-            .overlay-content { width: 80%; }
             .gallery img { width: 120px; height: 120px; }
         }
     </style>
 </head>
 <body>
 
-    <!-- ШАПКА -->
+    <!-- ШАПКА: ТЕКСТ ПО ЛЕВОМУ КРАЮ -->
     <section class="hero">
         <img src="images/main.webp" alt="Гранд Отель Агой Resort & SPA 5*" loading="lazy">
         <div class="overlay-bg"></div>
         <div class="overlay-content">
-            <h1>Гостиничный комплекс Гранд Отель Агой Resort & SPA на начальном этапе строительства предлагает вам выгодно инвестировать в свое будущее</h1>
-            <p>строительство по ФЗ-214</p>
-            <p>проектное финансирование ПАО Сбербанк</p>
-            <p>первая береговая линия Черного моря</p>
-            <p>международный отельер Domina</p>
-            <p>индивидуальные условия рассрочки</p>
-            <p class="highlight">Официальный старт продаж<br>гостиничных номеров строящегося отеля</p>
-            <a href="#" class="btn" id="openModal">Узнать подробнее</a>
+            <h1 style="text-align: left; margin-left: 5vw; margin-right: 5vw;">
+                Гостиничный комплекс<br>
+                Гранд Отель Агой Resort & SPA<br>
+                на начальном этапе строительства<br>
+                предлагает вам выгодно<br>
+                инвестировать в свое будущее
+            </h1>
+            <p style="text-align: left; margin-left: 5vw; margin-right: 5vw;">
+                строительство по ФЗ-214 проектное
+            </p>
+            <p style="text-align: left; margin-left: 5vw; margin-right: 5vw;">
+                финансирование ПАО Сбербанк первая
+            </p>
+            <p style="text-align: left; margin-left: 5vw; margin-right: 5vw;">
+                береговая линия Черного моря
+            </p>
+            <p style="text-align: left; margin-left: 5vw; margin-right: 5vw;">
+                международный отельер Domina
+            </p>
+            <p style="text-align: left; margin-left: 5vw; margin-right: 5vw;">
+                индивидуальные условия рассрочки
+            </p>
+            <p class="highlight" style="text-align: left; margin-left: 5vw; margin-right: 5vw;">
+                Официальный старт продаж гостиничных<br>
+                номеров строящегося отеля
+            </p>
+            <a href="#" class="btn" id="openModal" style="margin-left: 5vw; display: inline-block;">Узнать подробнее</a>
         </div>
     </section>
 
@@ -194,9 +217,10 @@
         </div>
     </div>
 
-    <!-- Остальной контент -->
+    <!-- ВСЁ ОСТАЛЬНОЕ СОДЕРЖАНИЕ -->
     <div class="container">
-        <!-- О проекте -->
+
+        <!-- О ПРОЕКТЕ -->
         <section class="about">
             <h2>О проекте</h2>
             <img src="images/interior-restaurant.webp" alt="Интерьер ресторана" loading="lazy">
@@ -212,22 +236,110 @@
             </div>
             <div class="features">
                 <h1>Гранд Отель Агой - роскошный комплекс<br>на берегу Чёрного моря</h1>
-                <p>Представьте себе место, где лазурное море встречается с бескрайним небом...</p>
+                <p>Представьте себе место, где лазурное море встречается с бескрайним небом, а каждый день наполнен комфортом и удовольствиями. Наш комплекс расположен на первой береговой линии, предлагая гостям безупречный отдых в окружении живописных пейзажей.</p>
+                <p>Это не просто отель — это премиальный уровень сервиса, созданный по международным стандартам.</p>
                 <ul>
-                    <li>Более 1000 номеров</li>
-                    <li>Spa-комплекс 3 200 м²</li>
-                    <li>Собственный пляж 30 000 м²</li>
-                    <li>Бассейны 1 200 м²</li>
-                    <li>Детский центр 2 300 м²</li>
-                    <li>Амфитеатр</li>
+                    <li>Более 1000 номеров – просторных, стильных и комфортабельных.</li>
+                    <li>Spa-комплекс 3 200 м² – царство релакса с профессиональными процедурами.</li>
+                    <li>Собственный пляж 30 000 м² – мягкий песок, шезлонги и кристально чистая вода.</li>
+                    <li>Бассейны площадью 1 200 м² – для плавания, отдыха и ярких впечатлений.</li>
+                    <li>Детский развлекательный центр 2 300 м² – море веселья для маленьких гостей.</li>
+                    <li>Амфитеатр – центр яркой анимационной программы.</li>
                 </ul>
             </div>
         </section>
 
-        <!-- Преимущества, Инвесторам, Схема, Карта, Жизнь — как раньше -->
-        <!-- (оставь из предыдущей версии) -->
+        <!-- ПРЕИМУЩЕСТВА -->
+        <section class="advantages">
+            <h1>Преимущества ГК "Гранд Отель Агой"</h1>
+            <div class="card">
+                <h2>Отдых в прибрежном оазисе</h2>
+                <ul style="padding-left:20px; list-style:disc;">
+                    <li>Гранд Отель Агой - это уникальный гостиничный комплекс, расположенный на первой линии живописного Черного моря в уютном поселке Агой.</li>
+                    <li>Никуда не нужно ездить - все развлечения и активности находятся на территории комплекса.</li>
+                </ul>
+            </div>
+            <div class="card">
+                <h2>Надежность</h2>
+                <p>Объект строится по ФЗ-214 с проектным финансированием от ПАО Сбербанк.</p>
+                <p>Гостиничный комплекс под управлением международного отельного оператора Domina.</p>
+            </div>
+            <div class="card">
+                <h2>Интерес для инвесторов</h2>
+                <p>Ежегодный рост цены недвижимости, удобная оплата, доходы от сдачи в управление.</p>
+            </div>
+            <img src="images/spa-pool.webp" alt="Бассейн и SPA" loading="lazy">
+        </section>
+
+        <!-- ИНВЕСТОРАМ -->
+        <section class="invest">
+            <img src="images/aerofoto-beach.webp" alt="Аэрофото с морем" loading="lazy">
+            <div class="overlay-text">
+                <h1>Предложения для инвесторов</h1>
+                <p>Получите доступ к закрытым предложениям. Оставьте заявку — менеджер свяжется с вами.</p>
+                <a href="#" class="btn">Связь с менеджером</a>
+            </div>
+        </section>
+
+        <!-- СХЕМА ВЗАИМОДЕЙСТВИЯ -->
+        <section class="scheme">
+            <h1>Схема взаимодействия</h1>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-icon">Phone</div>
+                    <div class="step-text">
+                        <h3>Консультация</h3>
+                        <p>Телефон, WhatsApp, Telegram</p>
+                    </div>
+                </div>
+                <div class="line"></div>
+                <div class="step">
+                    <div class="step-icon">Document</div>
+                    <div class="step-text">
+                        <h3>Презентация</h3>
+                        <p>Онлайн-показ объекта</p>
+                    </div>
+                </div>
+                <div class="line"></div>
+                <div class="step">
+                    <div class="step-icon">Plane</div>
+                    <div class="step-text">
+                        <h3>Сопровождение</h3>
+                        <p>Встреча в аэропорту</p>
+                    </div>
+                </div>
+                <div class="line"></div>
+                <div class="step">
+                    <div class="step-icon">Location</div>
+                    <div class="step-text">
+                        <h3>Знакомство</h3>
+                        <p>С локацией и объектом</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- КАРТА -->
+        <section class="map-section">
+            <h2>Расположение объекта на карте</h2>
+            <p>Краснодарский край, Туапсинский район,<br>с. Агой, ул. Центральная, 39</p>
+            <div class="map-placeholder">
+                <img src="images/map-location.webp" alt="Карта" loading="lazy">
+            </div>
+        </section>
+
+        <!-- ЖИЗНЬ В ГК -->
+        <section class="life">
+            <h1>Жизнь в ГК «Гранд Отель Агой»</h1>
+            <p>Уникальное местоположение. Инвестиционный потенциал. Активный отдых. Свяжитесь с нами сегодня.</p>
+            <a href="#" class="btn">Связаться с нами</a>
+            <img src="images/hotel-palms.webp" alt="Отель с пальмами" loading="lazy">
+            <div style="margin-top:20px; font-size:0.9rem; color:#555;">агой-гранд-отель.рф</div>
+        </section>
+
     </div>
 
+    <!-- СКРИПТ ДЛЯ МОДАЛЬНОГО ОКНА -->
     <script>
         const modal = document.getElementById('modal');
         const openBtn = document.getElementById('openModal');
