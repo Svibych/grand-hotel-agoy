@@ -362,4 +362,379 @@
     </script>
 
 </body>
+</html><!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Гранд Отель Агой Resort & SPA 5*</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        /* === Сброс === */
+        *, *::before, *::after { box-sizing: border-box; }
+        html, body {
+            margin: 0; padding: 0; width: 100%; height: 100%; overflow-x: hidden;
+        }
+        body {
+            font-family: 'Roboto', Arial, sans-serif;
+            background: #fff; color: #000; line-height: 1.5;
+        }
+        img { max-width: 100%; height: auto; display: block; loading: lazy; }
+        a { text-decoration: none; }
+
+        /* === ШАПКА: FULLSCREEN === */
+        .hero {
+            position: relative;
+            width: 100vw; height: 100vh; margin: 0; padding: 0; overflow: hidden;
+        }
+        .hero img {
+            position: absolute; top: 0; left: 0; width: 100vw; height: 100vh;
+            object-fit: cover; z-index: 0;
+        }
+        .overlay-bg {
+            position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0, 0, 0, 0.6); z-index: 1;
+        }
+        .overlay-content {
+            position: absolute;
+            top: 30%; /* ← ПОДНЯЛИ ВЫШЕ */
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #fff;
+            z-index: 2;
+            width: 90%;
+            max-width: 1100px;
+        }
+        .overlay-content h1 {
+            font-size: clamp(1.6rem, 4.5vw, 3rem); /* ← МЕНЬШЕ */
+            font-weight: 900;
+            text-shadow: 3px 3px 14px rgba(0,0,0,0.9);
+            line-height: 1.2;
+            margin-bottom: 25px;
+        }
+        .overlay-content p {
+            font-size: clamp(1rem, 2.6vw, 1.3rem);
+            margin: 8px 0;
+            text-shadow: 1px 1px 6px rgba(0,0,0,0.8);
+        }
+        .highlight {
+            font-weight: 700;
+            font-size: clamp(1.1rem, 3vw, 1.5rem);
+            margin-top: 30px;
+            display: block;
+        }
+        .btn {
+            display: inline-block;
+            background: rgba(244, 210, 158, 0.95);
+            color: #000;
+            font-weight: 700;
+            padding: 14px 30px;
+            border-radius: 50px;
+            font-size: clamp(1rem, 2.5vw, 1.1rem);
+            transition: background 0.3s;
+            margin-top: 30px;
+        }
+        .btn:hover { background: #f4d29e; }
+
+        /* === МОДАЛЬНОЕ ОКНО === */
+        .modal {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.7); z-index: 1000; justify-content: center; align-items: center;
+        }
+        .modal.active { display: flex; }
+        .modal-content {
+            background: #fff; padding: 30px; border-radius: 16px; width: 90%; max-width: 500px;
+            position: relative; animation: fadeIn 0.3s ease;
+        }
+        .close {
+            position: absolute; top: 15px; right: 15px; font-size: 1.8rem; cursor: pointer;
+            color: #aaa; transition: color 0.3s;
+        }
+        .close:hover { color: #000; }
+        .modal h2 {
+            font-size: 1.6rem; margin-bottom: 20px; text-align: center;
+        }
+        .form-group { margin-bottom: 15px; }
+        .form-group label { display: block; margin-bottom: 6px; font-weight: 500; }
+        .form-group input, .form-group textarea {
+            width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px;
+            font-size: 1rem; font-family: inherit;
+        }
+        .form-group input:focus, .form-group textarea:focus {
+            outline: none; border-color: #f4d29e; box-shadow: 0 0 0 2px rgba(244,210,158,0.3);
+        }
+        .submit-btn {
+            width: 100%; background: #f4d29e; color: #000; font-weight: 700;
+            padding: 14px; border: none; border-radius: 50px; font-size: 1.1rem;
+            cursor: pointer; transition: background 0.3s;
+        }
+        .submit-btn:hover { background: #e0c090; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        /* === КОНТЕЙНЕР === */
+        .container { max-width: 1400px; margin: 0 auto; padding: 0 15px; }
+
+        /* === ОСТАЛЬНЫЕ СЕКЦИИ (без изменений) === */
+        .about { padding: 60px 0; }
+        .about h2 { font-size: clamp(1.8rem, 4vw, 2.5rem); margin-bottom: 20px; text-align: center; }
+        .gallery { display: flex; overflow-x: auto; gap: 10px; padding: 10px 0; scrollbar-width: thin; }
+        .gallery img { width: 90px; height: 90px; border-radius: 8px; flex-shrink: 0; object-fit: cover; }
+        .features { margin-top: 30px; }
+        .features h1 { font-size: clamp(1.6rem, 4vw, 2.2rem); margin-bottom: 20px; text-align: center; }
+        .features p { margin-bottom: 20px; font-size: 1rem; }
+        .features ul { list-style: none; padding: 0; }
+        .features li { font-size: 1.05rem; margin-bottom: 18px; padding-left: 40px; position: relative; }
+        .features li::before { content: 'Checkmark'; position: absolute; left: 0; font-weight: 900; color: #000; font-size: 1.5rem; }
+
+        .advantages { padding: 60px 0; background: #fafafa; }
+        .advantages h1 { font-size: clamp(1.8rem, 4vw, 2.4rem); margin-bottom: 30px; text-align: center; }
+        .card { background: #fff; padding: 20px; border-radius: 12px; margin-bottom: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+        .card h2 { font-size: 1.4rem; margin-bottom: 12px; }
+
+        .invest { position: relative; color: #fff; margin: 60px 0; }
+        .invest img { width: 100%; min-height: 400px; object-fit: cover; }
+        .invest .overlay-text { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; max-width: 700px; padding: 0 20px; z-index: 2; }
+        .invest h1 { font-size: clamp(1.8rem, 4.5vw, 2.6rem); margin-bottom: 15px; }
+        .invest p { font-size: 1.05rem; margin-bottom: 25px; }
+
+        .scheme { padding: 60px 0; text-align: center; }
+        .scheme h1 { font-size: clamp(1.8rem, 4vw, 2.4rem); margin-bottom: 40px; }
+        .steps { display: flex; flex-direction: column; align-items: center; }
+        .step { display: flex; align-items: center; max-width: 600px; width: 100%; margin-bottom: 30px; }
+        .step-icon { background: #f4d29e; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.6rem; margin-right: 20px; flex-shrink: 0; }
+        .step-text h3 { font-size: 1.2rem; margin-bottom: 4px; }
+        .step-text p { font-size: 0.95rem; color: #555; }
+        .line { width: 2px; height: 50px; background: #f4d29e; margin: 0 auto; }
+
+        .map-section { background: #f4d29e; color: #fff; padding: 60px 0; text-align: center; }
+        .map-section h2 { font-size: 1.6rem; margin-bottom: 15px; }
+        .map-section p { margin-bottom: 20px; font-size: 1rem; }
+        .map-placeholder { height: 250px; border-radius: 12px; overflow: hidden; margin: 0 auto 20px; max-width: 800px; }
+        .map-placeholder img { width: 100%; height: 100%; object-fit: cover; }
+
+        .life { padding: 60px 0; text-align: center; }
+        .life h1 { font-size: clamp(2rem, 5vw, 3rem); margin-bottom: 20px; }
+        .life p { font-size: 1.1rem; margin-bottom: 30px; max-width: 800px; margin-left: auto; margin-right: auto; }
+
+        @media (min-width: 768px) {
+            .steps { flex-direction: row; flex-wrap: wrap; justify-content: center; gap: 30px; }
+            .step { flex-direction: column; align-items: center; text-align: center; max-width: 180px; }
+            .step-icon { margin-right: 0; margin-bottom: 15px; }
+            .line { display: none; }
+        }
+        @media (min-width: 1024px) {
+            .gallery img { width: 120px; height: 120px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ШАПКА: ПОДНЯТЫЙ И УМЕНЬШЕННЫЙ ЗАГОЛОВОК -->
+    <section class="hero">
+        <img src="images/main.webp" alt="Гранд Отель Агой Resort & SPA 5*" loading="lazy">
+        <div class="overlay-bg"></div>
+        <div class="overlay-content">
+            <h1 style="text-align: left; margin-left: 5vw; margin-right: 5vw;">
+                Гостиничный комплекс<br>
+                Гранд Отель Агой Resort & SPA<br>
+                на начальном этапе строительства<br>
+                предлагает вам выгодно<br>
+                инвестировать в свое будущее
+            </h1>
+            <p style="text-align: left; margin-left: 5vw; margin-right: 5vw;">
+                строительство по ФЗ-214 проектное
+            </p>
+            <p style="text-align: left; margin-left: 5vw; margin-right: 5vw;">
+                финансирование ПАО Сбербанк первая
+            </p>
+            <p style="text-align: left; margin-left: 5vw; margin-right: 5vw;">
+                береговая линия Черного моря
+            </p>
+            <p style="text-align: left; margin-left: 5vw; margin-right: 5vw;">
+                международный отельер Domina
+            </p>
+            <p style="text-align: left; margin-left: 5vw; margin-right: 5vw;">
+                индивидуальные условия рассрочки
+            </p>
+            <p class="highlight" style="text-align: left; margin-left: 5vw; margin-right: 5vw;">
+                Официальный старт продаж гостиничных<br>
+                номеров строящегося отеля
+            </p>
+            <a href="#" class="btn" id="openModal" style="margin-left: 5vw; display: inline-block;">Узнать подробнее</a>
+        </div>
+    </section>
+
+    <!-- МОДАЛЬНОЕ ОКНО -->
+    <div class="modal" id="modal">
+        <div class="modal-content">
+            <span class="close" id="closeModal">×</span>
+            <h2>Оставьте заявку</h2>
+            <form action="https://formsubmit.co/your-email@example.com" method="POST">
+                <div class="form-group">
+                    <label>Ваше имя *</label>
+                    <input type="text" name="name" required placeholder="Иван Иванов">
+                </div>
+                <div class="form-group">
+                    <label>Телефон *</label>
+                    <input type="tel" name="phone" required placeholder="+7 (999) 123-45-67">
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" name="email" placeholder="ivan@example.com">
+                </div>
+                <button type="submit" class="submit-btn">Отправить заявку</button>
+                <input type="hidden" name="_next" value="https://твой-сайт.рф/thanks.html">
+                <input type="hidden" name="_captcha" value="false">
+            </form>
+        </div>
+    </div>
+
+    <!-- ВСЁ ОСТАЛЬНОЕ СОДЕРЖАНИЕ -->
+    <div class="container">
+        <!-- О проекте -->
+        <section class="about">
+            <h2>О проекте</h2>
+            <img src="images/interior-restaurant.webp" alt="Интерьер ресторана" loading="lazy">
+            <div class="gallery">
+                <img src="images/gallery-1.webp" alt="Фасад" loading="lazy">
+                <img src="images/gallery-2.webp" alt="Бассейн" loading="lazy">
+                <img src="images/gallery-3.webp" alt="SPA" loading="lazy">
+                <img src="images/gallery-4.webp" alt="Пляж" loading="lazy">
+                <img src="images/gallery-5.webp" alt="Номер" loading="lazy">
+                <img src="images/gallery-6.webp" alt="Лобби" loading="lazy">
+                <img src="images/gallery-7.webp" alt="Терраса" loading="lazy">
+                <img src="images/gallery-8.webp" alt="Ресторан" loading="lazy">
+            </div>
+            <div class="features">
+                <h1>Гранд Отель Агой - роскошный комплекс<br>на берегу Чёрного моря</h1>
+                <p>Представьте себе место, где лазурное море встречается с бескрайним небом, а каждый день наполнен комфортом и удовольствиями. Наш комплекс расположен на первой береговой линии, предлагая гостям безупречный отдых в окружении живописных пейзажей.</p>
+                <p>Это не просто отель — это премиальный уровень сервиса, созданный по международным стандартам.</p>
+                <ul>
+                    <li>Более 1000 номеров – просторных, стильных и комфортабельных.</li>
+                    <li>Spa-комплекс 3 200 м² – царство релакса с профессиональными процедурами.</li>
+                    <li>Собственный пляж 30 000 м² – мягкий песок, шезлонги и кристально чистая вода.</li>
+                    <li>Бассейны площадью 1 200 м² – для плавания, отдыха и ярких впечатлений.</li>
+                    <li>Детский развлекательный центр 2 300 м² – море веселья для маленьких гостей.</li>
+                    <li>Амфитеатр – центр яркой анимационной программы.</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Преимущества -->
+        <section class="advantages">
+            <h1>Преимущества ГК "Гранд Отель Агой"</h1>
+            <div class="card">
+                <h2>Отдых в прибрежном оазисе</h2>
+                <ul style="padding-left:20px; list-style:disc;">
+                    <li>Гранд Отель Агой - это уникальный гостиничный комплекс, расположенный на первой линии живописного Черного моря в уютном поселке Агой.</li>
+                    <li>Никуда не нужно ездить - все развлечения и активности находятся на территории комплекса.</li>
+                </ul>
+            </div>
+            <div class="card">
+                <h2>Надежность</h2>
+                <p>Объект строится по ФЗ-214 с проектным финансированием от ПАО Сбербанк.</p>
+                <p>Гостиничный комплекс под управлением международного отельного оператора Domina.</p>
+            </div>
+            <div class="card">
+                <h2>Интерес для инвесторов</h2>
+                <p>Ежегодный рост цены недвижимости, удобная оплата, доходы от сдачи в управление.</p>
+            </div>
+            <img src="images/spa-pool.webp" alt="Бассейн и SPA" loading="lazy">
+        </section>
+
+        <!-- Инвесторам -->
+        <section class="invest">
+            <img src="images/aerofoto-beach.webp" alt="Аэрофото с морем" loading="lazy">
+            <div class="overlay-text">
+                <h1>Предложения для инвесторов</h1>
+                <p>Получите доступ к закрытым предложениям. Оставьте заявку — менеджер свяжется с вами.</p>
+                <a href="#" class="btn">Связь с менеджером</a>
+            </div>
+        </section>
+
+        <!-- Схема взаимодействия -->
+        <section class="scheme">
+            <h1>Схема взаимодействия</h1>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-icon">Phone</div>
+                    <div class="step-text">
+                        <h3>Консультация</h3>
+                        <p>Телефон, WhatsApp, Telegram</p>
+                    </div>
+                </div>
+                <div class="line"></div>
+                <div class="step">
+                    <div class="step-icon">Document</div>
+                    <div class="step-text">
+                        <h3>Презентация</h3>
+                        <p>Онлайн-показ объекта</p>
+                    </div>
+                </div>
+                <div class="line"></div>
+                <div class="step">
+                    <div class="step-icon">Plane</div>
+                    <div class="step-text">
+                        <h3>Сопровождение</h3>
+                        <p>Встреча в аэропорту</p>
+                    </div>
+                </div>
+                <div class="line"></div>
+                <div class="step">
+                    <div class="step-icon">Location</div>
+                    <div class="step-text">
+                        <h3>Знакомство</h3>
+                        <p>С локацией и объектом</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Карта -->
+        <section class="map-section">
+            <h2>Расположение объекта на карте</h2>
+            <p>Краснодарский край, Туапсинский район,<br>с. Агой, ул. Центральная, 39</p>
+            <div class="map-placeholder">
+                <img src="images/map-location.webp" alt="Карта" loading="lazy">
+            </div>
+        </section>
+
+        <!-- Жизнь в ГК -->
+        <section class="life">
+            <h1>Жизнь в ГК «Гранд Отель Агой»</h1>
+            <p>Уникальное местоположение. Инвестиционный потенциал. Активный отдых. Свяжитесь с нами сегодня.</p>
+            <a href="#" class="btn">Связаться с нами</a>
+            <img src="images/hotel-palms.webp" alt="Отель с пальмами" loading="lazy">
+            <div style="margin-top:20px; font-size:0.9rem; color:#555;">агой-гранд-отель.рф</div>
+        </section>
+
+    </div>
+
+    <!-- СКРИПТ МОДАЛЬНОГО ОКНА -->
+    <script>
+        const modal = document.getElementById('modal');
+        const openBtn = document.getElementById('openModal');
+        const closeBtn = document.getElementById('closeModal');
+
+        openBtn.onclick = (e) => {
+            e.preventDefault();
+            modal.classList.add('active');
+        };
+
+        closeBtn.onclick = () => {
+            modal.classList.remove('active');
+        };
+
+        window.onclick = (e) => {
+            if (e.target === modal) {
+                modal.classList.remove('active');
+            }
+        };
+    </script>
+
+</body>
 </html>
