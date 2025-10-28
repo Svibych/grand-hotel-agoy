@@ -6,7 +6,7 @@
     <title>Гранд Отель Агой Resort & SPA 5*</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
     <style>
-        /* === Сброс и базовые стили === */
+        /* === Сброс === */
         *, *::before, *::after { box-sizing: border-box; }
         body, h1, h2, h3, p, ul { margin: 0; padding: 0; }
         body {
@@ -15,22 +15,11 @@
             color: #000;
             line-height: 1.5;
         }
-        img { 
-            max-width: 100%; 
-            height: auto; 
-            display: block; 
-            loading: lazy;
-        }
+        img { max-width: 100%; height: auto; display: block; loading: lazy; }
         a { text-decoration: none; }
+        .container { max-width: 1400px; margin: 0 auto; padding: 0 15px; }
 
-        /* === Контейнер === */
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 15px;
-        }
-
-        /* === Главный слайд === */
+        /* === ШАПКА: Только фон + надпись === */
         .hero {
             position: relative;
             overflow: hidden;
@@ -40,65 +29,29 @@
             min-height: 500px;
             object-fit: cover;
         }
-        .overlay-text {
+        .overlay-bg {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0, 0, 0, 0.55);
+            z-index: 1;
+        }
+        .overlay-title {
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
             text-align: center;
             color: #fff;
+            z-index: 2;
             width: 90%;
-            max-width: 800px;
-            text-shadow: 2px 2px 6px rgba(0,0,0,0.6);
+            max-width: 900px;
         }
-        .overlay-text h1 {
-            font-size: clamp(1.8rem, 5vw, 3.5rem);
-            margin-bottom: 10px;
+        .overlay-title h1 {
+            font-size: clamp(2rem, 6vw, 4.2rem);
             font-weight: 900;
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.9);
+            line-height: 1.1;
         }
-        .overlay-text p {
-            font-size: clamp(0.9rem, 2.5vw, 1.2rem);
-            margin: 6px 0;
-        }
-        .btn {
-            display: inline-block;
-            background: rgba(244, 210, 158, 0.95);
-            color: #000;
-            font-weight: 700;
-            padding: 14px 30px;
-            border-radius: 50px;
-            margin: 20px auto 0;
-            font-size: clamp(1rem, 2.5vw, 1.1rem);
-            transition: background 0.3s;
-        }
-        .btn:hover { background: #f4d29e; }
-        .domain {
-            position: absolute;
-            bottom: 15px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: rgba(255,255,255,0.85);
-            padding: 6px 18px;
-            border-radius: 30px;
-            font-size: 0.95rem;
-            font-weight: 500;
-        }
-        .arrows {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background: rgba(255,255,255,0.7);
-            width: 44px; height: 44px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.6rem;
-            cursor: pointer;
-            user-select: none;
-        }
-        .left-arrow { left: 15px; }
-        .right-arrow { right: 15px; }
 
         /* === О проекте === */
         .about { padding: 40px 0; }
@@ -166,14 +119,16 @@
             color: #fff;
             margin: 40px 0;
         }
-        .invest img { 
-            width: 100%; 
-            min-height: 400px; 
-            object-fit: cover; 
-        }
+        .invest img { width: 100%; min-height: 400px; object-fit: cover; }
         .invest .overlay-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
             max-width: 700px;
             padding: 0 20px;
+            z-index: 2;
         }
         .invest h1 { font-size: clamp(1.8rem, 4.5vw, 2.6rem); margin-bottom: 15px; }
         .invest p { font-size: 1.05rem; margin-bottom: 25px; }
@@ -200,7 +155,6 @@
             margin-right: 20px;
             flex-shrink: 0;
         }
-        .step-text { text-align: left; }
         .step-text h3 { font-size: 1.2rem; margin-bottom: 4px; }
         .step-text p { font-size: 0.95rem; color: #555; }
         .line {
@@ -220,7 +174,6 @@
         .map-section h2 { font-size: 1.6rem; margin-bottom: 15px; }
         .map-section p { margin-bottom: 20px; font-size: 1rem; }
         .map-placeholder {
-            background: #e0c7a0;
             height: 250px;
             border-radius: 12px;
             overflow: hidden;
@@ -233,9 +186,21 @@
         .life { padding: 50px 0; text-align: center; }
         .life h1 { font-size: clamp(2rem, 5vw, 3rem); margin-bottom: 20px; }
         .life p { font-size: 1.1rem; margin-bottom: 30px; max-width: 800px; margin-left: auto; margin-right: auto; }
-        .life .btn { margin-bottom: 30px; }
 
-        /* === Медиа-запросы === */
+        /* === Кнопки === */
+        .btn {
+            display: inline-block;
+            background: rgba(244, 210, 158, 0.95);
+            color: #000;
+            font-weight: 700;
+            padding: 14px 30px;
+            border-radius: 50px;
+            font-size: clamp(1rem, 2.5vw, 1.1rem);
+            transition: background 0.3s;
+        }
+        .btn:hover { background: #f4d29e; }
+
+        /* === Адаптивность === */
         @media (min-width: 768px) {
             .steps { flex-direction: row; flex-wrap: wrap; justify-content: center; gap: 30px; }
             .step { flex-direction: column; align-items: center; text-align: center; max-width: 180px; }
@@ -243,7 +208,7 @@
             .line { display: none; }
         }
         @media (min-width: 1024px) {
-            .overlay-text { width: 80%; }
+            .overlay-title { width: 80%; }
             .features, .advantages, .scheme, .life { padding: 60px 0; }
             .gallery img { width: 120px; height: 120px; }
         }
@@ -253,33 +218,24 @@
 
 <div class="container">
 
-    <!-- Главный слайд: Локальное фото -->
+    <!-- ШАПКА: Только фон + надпись -->
     <section class="hero">
         <img src="images/main.webp" alt="Гранд Отель Агой Resort & SPA 5*" loading="lazy">
-        <div class="overlay-text">
+        <div class="overlay-bg"></div>
+        <div class="overlay-title">
             <h1>Гостиничный комплекс<br>Гранд Отель Агой<br>Resort & SPA 5*</h1>
-            <p>строительство по ФЗ-214</p>
-            <p>проектное финансирование ПАО Сбербанк</p>
-            <p>первая береговая линия Черного моря</p>
-            <p>международный отельер Domina</p>
-            <p>индивидуальные условия рассрочки</p>
-            <p style="font-weight:700; margin-top:20px;">Официальный старт продаж<br>гостиничных номеров строящегося отеля</p>
         </div>
-        <a href="#" class="btn">Узнать подробнее</a>
-        <div class="domain">агой-гранд-отель.рф</div>
-        <div class="arrows left-arrow">&lt;</div>
-        <div class="arrows right-arrow">&gt;</div>
     </section>
 
     <!-- О проекте -->
     <section class="about">
         <div class="container">
             <h2>О проекте</h2>
-            <img src="images/interior-restaurant.webp" alt="Интерьер ресторана в Гранд Отель Агой" loading="lazy">
+            <img src="images/interior-restaurant.webp" alt="Интерьер ресторана" loading="lazy">
             <div class="gallery">
-                <img src="images/gallery-1.webp" alt="Фасад отеля" loading="lazy">
+                <img src="images/gallery-1.webp" alt="Фасад" loading="lazy">
                 <img src="images/gallery-2.webp" alt="Бассейн" loading="lazy">
-                <img src="images/gallery-3.webp" alt="SPA-зона" loading="lazy">
+                <img src="images/gallery-3.webp" alt="SPA" loading="lazy">
                 <img src="images/gallery-4.webp" alt="Пляж" loading="lazy">
                 <img src="images/gallery-5.webp" alt="Номер" loading="lazy">
                 <img src="images/gallery-6.webp" alt="Лобби" loading="lazy">
@@ -296,7 +252,7 @@
                     <li>Собственный пляж 30 000 м² – мягкий песок, шезлонги и кристально чистая вода.</li>
                     <li>Бассейны площадью 1 200 м² – для плавания, отдыха и ярких впечатлений.</li>
                     <li>Детский развлекательный центр 2 300 м² – море веселья для маленьких гостей.</li>
-                    <li>Амфитеатр – центр яркой анимационной программы, поддерживающий уникальную архитектуру комплекса и концепцию отдыха.</li>
+                    <li>Амфитеатр – центр яркой анимационной программы.</li>
                 </ul>
             </div>
         </div>
@@ -309,30 +265,30 @@
             <div class="card">
                 <h2>Отдых в прибрежном оазисе</h2>
                 <ul style="padding-left:20px; list-style:disc;">
-                    <li>Гранд Отель Агой - это уникальный гостиничный комплекс, расположенный на первой линии живописного Черного моря в уютном поселке Агой, Туапсинского района.</li>
-                    <li>Никуда не нужно ездить - все развлечения и активности от SPA-комплекса до Lounge-бара и детской игровой зоны находятся на территории комплекса.</li>
+                    <li>Гранд Отель Агой - это уникальный гостиничный комплекс, расположенный на первой линии живописного Черного моря в уютном поселке Агой.</li>
+                    <li>Никуда не нужно ездить - все развлечения и активности находятся на территории комплекса.</li>
                 </ul>
             </div>
             <div class="card">
                 <h2>Надежность</h2>
                 <p>Объект строится по ФЗ-214 с проектным финансированием от ПАО Сбербанк.</p>
-                <p>Гостиничный комплекс под управлением международного отельного оператора Domina с 30-летней историей.</p>
+                <p>Гостиничный комплекс под управлением международного отельного оператора Domina.</p>
             </div>
             <div class="card">
                 <h2>Интерес для инвесторов</h2>
-                <p>Ежегодный рост цены самой недвижимости, удобная оплата через ипотеку или рассрочку, доходы от сдачи недвижимости в управление - делают инвестиции в ГК "Гранд Отель Агой" одним из самых привлекательных финансовых вложений в недвижимость в России.</p>
+                <p>Ежегодный рост цены недвижимости, удобная оплата, доходы от сдачи в управление.</p>
             </div>
-            <img src="images/spa-pool.webp" alt="Бассейн и SPA в Гранд Отель Агой" loading="lazy">
+            <img src="images/spa-pool.webp" alt="Бассейн и SPA" loading="lazy">
         </div>
     </section>
 
     <!-- Инвесторам -->
     <section class="invest">
-        <img src="images/aerofoto-beach.webp" alt="Аэрофото отеля с видом на море" loading="lazy">
+        <img src="images/aerofoto-beach.webp" alt="Аэрофото с морем" loading="lazy">
         <div class="overlay-text">
             <h1>Предложения для инвесторов</h1>
-            <p>Получите доступ к закрытым предложениям для инвесторов, оставьте свои контактные данные и персональный менеджер с Вами свяжется.</p>
-            <a href="#" class="btn">Связь с персональным менеджером</a>
+            <p>Получите доступ к закрытым предложениям. Оставьте заявку — менеджер свяжется с вами.</p>
+            <a href="#" class="btn">Связь с менеджером</a>
         </div>
     </section>
 
@@ -345,7 +301,7 @@
                     <div class="step-icon">Phone</div>
                     <div class="step-text">
                         <h3>Консультация</h3>
-                        <p>В удобном для вас формате - телефон, Whatsapp, Telegram</p>
+                        <p>Телефон, WhatsApp, Telegram</p>
                     </div>
                 </div>
                 <div class="line"></div>
@@ -353,7 +309,7 @@
                     <div class="step-icon">Document</div>
                     <div class="step-text">
                         <h3>Презентация</h3>
-                        <p>Проводим персональный онлайн-показ объекта</p>
+                        <p>Онлайн-показ объекта</p>
                     </div>
                 </div>
                 <div class="line"></div>
@@ -361,7 +317,7 @@
                     <div class="step-icon">Plane</div>
                     <div class="step-text">
                         <h3>Сопровождение</h3>
-                        <p>Встречаем в аэропорту или на вокзале</p>
+                        <p>Встреча в аэропорту</p>
                     </div>
                 </div>
                 <div class="line"></div>
@@ -369,7 +325,7 @@
                     <div class="step-icon">Location</div>
                     <div class="step-text">
                         <h3>Знакомство</h3>
-                        <p>С городом, локацией, объектом</p>
+                        <p>С локацией и объектом</p>
                     </div>
                 </div>
             </div>
@@ -381,9 +337,8 @@
         <div class="container">
             <h2>Расположение объекта на карте</h2>
             <p>Краснодарский край, Туапсинский район,<br>с. Агой, ул. Центральная, 39</p>
-            <p>Объект расположен в живописном районе с богатой историей и культурой, что делает его привлекательным для туристов</p>
             <div class="map-placeholder">
-                <img src="images/map-location.webp" alt="Карта расположения Гранд Отель Агой" loading="lazy">
+                <img src="images/map-location.webp" alt="Карта" loading="lazy">
             </div>
         </div>
     </section>
@@ -392,10 +347,10 @@
     <section class="life">
         <div class="container">
             <h1>Жизнь в ГК «Гранд Отель Агой»</h1>
-            <p>Уникальное местоположение. Инвестиционный потенциал. Активный отдых. Развитая инфраструктура. Свяжитесь с нами сегодня.</p>
+            <p>Уникальное местоположение. Инвестиционный потенциал. Активный отдых. Свяжитесь с нами сегодня.</p>
             <a href="#" class="btn">Связаться с нами</a>
-            <img src="images/hotel-palms.webp" alt="Гранд Отель Агой с пальмами и бассейном" loading="lazy">
-            <div class="domain">агой-гранд-отель.рф</div>
+            <img src="images/hotel-palms.webp" alt="Отель с пальмами" loading="lazy">
+            <div style="margin-top:20px; font-size:0.9rem; color:#555;">агой-гранд-отель.рф</div>
         </div>
     </section>
 
